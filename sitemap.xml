@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://ishaanv.github.io/blog/confidence-intervals-vs-prediction-intervals/</loc>
+    <lastmod>2017-01-17T10:44:09+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ishaanv.github.io/blog/</loc>
+    <lastmod>2017-01-17T10:44:09+11:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ishaanv.github.io/</loc>
+    <lastmod>2017-01-17T10:44:09+11:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>
