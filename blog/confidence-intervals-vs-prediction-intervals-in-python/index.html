@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Don&#39;t panic">
+
+<base href="https://ishaanv.github.io/personal-blog">
+<title>
+
+
+     Confidence Intervals vs Prediction Intervals (in Python) 
+
+</title>
+<link rel="canonical" href="https://ishaanv.github.io/personal-blog/blog/confidence-intervals-vs-prediction-intervals-in-python/">
+
+
+<script type="text/javascript">
+    var baseURL = 'https:\/\/ishaanv.github.io\/personal-blog';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Ubuntu+Mono:400,400i,700,700i|Raleway:500">
+
+
+
+    
+    <link rel="stylesheet" href="https://ishaanv.github.io/personal-blog/css/reset.css?t=1484891277">
+    <link rel="stylesheet" href="https://ishaanv.github.io/personal-blog/css/pygments.css?t=1484891277">
+    <link rel="stylesheet" href="https://ishaanv.github.io/personal-blog/css/main.css?t=1484891277">
+    
+        <link rel="stylesheet" href="https://ishaanv.github.io/personal-blog/css/override.css?t=1484891277">
+    
+
+
+
+
+<link rel="shortcut icon"
+
+    href="https://ishaanv.github.io/personal-blog/img/leaf.ico"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="en">
+
+<section class="header">
+    <div class="container">
+        <div class="content">
+            
+            <a href="https://ishaanv.github.io/personal-blog/"><div class="name">Ishaan Varshney</div></a>
+            
+            <nav>
+                <ul>
+                    <a href="https://ishaanv.github.io/personal-blog/blog/"><li>Blog</li></a>
+                    <a href="https://ishaanv.github.io/personal-blog/about/"><li>About</li></a>
+                    <a href="https://ishaanv.github.io/personal-blog/code/"><li>Code</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/ishaanv" target="_blank"><img class="icon" src="https://ishaanv.github.io/personal-blog/img/github.svg" alt="github" /></a>
+        
+
+        
+
+        
+            <a href="//linkedin.com/in/ishaan-varshney-1337a3105/" target="_blank"><img class="icon" src="https://ishaanv.github.io/personal-blog/img/linkedin.svg" alt="linkedin" /></a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="https://ishaanv.github.io/personal-blog/index.xml"><img class="icon" src="https://ishaanv.github.io/personal-blog/img/rss.svg" alt="rss" /></a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Confidence Intervals vs Prediction Intervals (in Python)
+
+</div>
+
+                    <div class="initials"><a href="https://ishaanv.github.io/personal-blog">ad</a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Fri Jan 20 2017 14:12:58 AEDT">Jan 20, 2017</div>
+                    <div class="reading-time"><div class="middot"></div>4 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                
+
+<!-- ![formaulas](/blog/stats/formulas.png "tl;dr :P") -->
+
+<!-- TODO increase size in mathjax and save mathjax setting -->
+
+<!-- <iframe width="900" height="800" frameborder="0" scrolling="no" src="https://plot.ly/~ishaanvar/2.embed"></iframe> -->
+
+<!-- <iframe width="900" height="800" frameborder="0" scrolling="no" src="https://ishaanv.github.io/personal-blog/blog/stats/simple-3d-scatter1.html"></iframe> -->
+
+<h2 id="context">Context</h2>
+
+<p>Statistics is useful because it helps us predict phenonemen. However, whenever we enter the field of predictions we also need to provide a level of uncertainty (or confidence) associated with that estimate.</p>
+
+<p>Let&rsquo;s explore the idea of uncertainty with an example.</p>
+
+<h3 id="tv-advertising-sales">TV advertising -&gt; Sales</h3>
+
+<p><em>This example is from book <a href="http://www-bcf.usc.edu/~gareth/ISL/">Introduction to Statistical Learning</a></em></p>
+
+<h3 id="data">Data</h3>
+
+<pre><code class="language-python">advertising_data.head()[['TV', 'Sales']]
+</code></pre>
+
+<div>
+<table border="1" class="dataframe" style="text-align: center;">
+  <thead>
+    <tr>
+      <th></th>
+      <th>TV</th>
+      <th>Sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>230.1</td>
+      <td>22.1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>44.5</td>
+      <td>10.4</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>17.2</td>
+      <td>9.3</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>151.5</td>
+      <td>18.5</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>180.8</td>
+      <td>12.9</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h3 id="regression">Regression</h3>
+
+<p>Let&rsquo;s perform simple linear regresssion with TV advertising being the independant variable</p>
+
+<pre><code class="language-python">import statsmodels.formula.api as sm
+res = sm.ols(&quot;Sales ~ TV&quot;, advertising_data).fit()
+plt.plot(advertising_data[&quot;TV&quot;], advertising_data['Sales'], 'ro')
+plt.plot(advertising_data[&quot;TV&quot;], res.fittedvalues, 'b')
+</code></pre>
+
+<p><img src="https://ishaanv.github.io/personal-blog/blog/stats/regression_output_6_1.png" alt="regression" /></p>
+
+<p>Now let&rsquo;s plot the confidence and prediction intervals on the historical data.</p>
+
+<pre><code class="language-python">from statsmodels.stats.outliers_influence import summary_table
+st, data, ss2 = summary_table(res, alpha=0.05)
+</code></pre>
+
+<p>I recommend exploring the output of <code>summary_table</code> as it contains information relating to confidence and prediction intervals. Also the docs for statsmodels are not too helpful in this area.</p>
+
+<pre><code class="language-python">ci_low = data[:,4]
+ci_hi = data[:,5]
+pi_low = data[:,6]
+pi_hi = data[:,7]
+
+
+plt.plot(advertising_data[&quot;TV&quot;], advertising_data['Sales'], 'ro')
+plt.plot(advertising_data[&quot;TV&quot;], res.fittedvalues, 'b')
+plt.plot(advertising_data[&quot;TV&quot;], ci_low, 'g--')
+plt.plot(advertising_data[&quot;TV&quot;], ci_hi, 'g--')
+plt.plot(advertising_data[&quot;TV&quot;], pi_low, 'c--')
+plt.plot(advertising_data[&quot;TV&quot;], pi_hi, 'c--')
+
+</code></pre>
+
+<p><img src="https://ishaanv.github.io/personal-blog/blog/stats/output_6_1.png" alt="regression" /></p>
+
+<h3 id="predictions">Predictions</h3>
+
+<p>We can either:</p>
+
+<p>1) predict the <em>average sales</em> of branches that spent 100,000 units on TV advertising</p>
+
+<p>2) predict the sales of <em>one branch</em> that spent 100,000 units on TV adversiting</p>
+
+<p>Depending which of the above we choose to predict, we will have different error bounds as there are differing levels of uncertainty associated with each prediction. However, the bounds for the both cases will centre around the same point. In other words, they will both predict the same value</p>
+
+<p>The bounds associated with (1) average prediction is called the confidence interval. While the bounds around (2) a single point is called the prediction interval.</p>
+
+<p>The bounds for a single point will be greater than the average of those points. There is greater uncertainty associated with the a single prediction because we have to account for irreducible errors. When we take the average of the points we assume that the irrecible errors from all the points will cancel each other out.</p>
+
+<p>At some point, I&rsquo;ll do a post about irreducible errors in a linear regression to explore this idea further.</p>
+
+<h1 id="calculating-confidence-intervals-for-an-exogenous-point">Calculating confidence intervals for an exogenous point.</h1>
+
+<p>Using our simple linear regression model, let&rsquo;s predict the <code>Sales</code> when we spend 100 units on <code>TV</code> advertising and the associated CI and PI values.</p>
+
+<h3 id="by-hand">By hand</h3>
+
+<p><code>$$
+CI: \hat{y}\space \pm \space  t_{n-2}^\star s\sqrt{\frac{1}{n} + \frac{(x^* - \bar{x})^2}{((n-1)s_x^2)}} 
+\\
+\\
+PI: \hat{y}\space \pm \space  t_{n-2}^\star s\sqrt{1 + \frac{1}{n} + \frac{(x^* - \bar{x})^2}{((n-1)s_x^2)}}
+$$</code></p>
+
+<p>where s is the residual standard error</p>
+
+<p>Calulating the <strong>confidence intervals</strong> from scratch we get:</p>
+
+<pre><code>from scipy import stats
+
+x = 1/len(advertising_data) + (pow(100-tv_bar,2)/((len(advertising_data)-1)*pow(tv_s,2)))
+conf_low = pred - stats.t.ppf(1-0.025, 198) * se*pow(x, 0.5)
+conf_hi = pred + stats.t.ppf(1-0.025, 198) * se*pow(x, 0.5)
+</code></pre>
+
+<p>Output</p>
+
+<pre><code class="language-python">&gt;&gt; print(conf_low, conf_hi)
+&gt;&gt; [ 11.26583257] [ 12.30668261]
+</code></pre>
+
+<p>Calculating the <strong>prediction intervals</strong> from scratch, we get:</p>
+
+<pre><code class="language-python">
+rss = sum([pow(advertising_data[&quot;TV&quot;], 2) for x in res.resid])
+rse = pow(rss/(len(advertising_data['Sales'])-2), 0.5)
+
+</code></pre>
+
+<p>RSE can be thought of as the standard deviation of the residuals.</p>
+
+<pre><code class="language-python">from scipy import stats
+# using the above formula
+x = 1 + 1/len(advertising_data) + 
+    (pow(100-tv_bar,2)/((len(advertising_data)-1)*pow(tv_s,2)))
+pred_low = pred - stats.t.ppf(1-0.025, 198) * se*pow(x, 0.5)
+pred_hi = pred + stats.t.ppf(1-0.025, 198) * se*pow(x, 0.5)
+</code></pre>
+
+<p>Output</p>
+
+<pre><code class="language-python">&gt;&gt; print(conf_low, conf_hi)
+&gt;&gt; [ 5.31828015] [ 18.25423503]
+</code></pre>
+
+<p>Alternatively one can find the prediction interval bounds by:</p>
+
+<pre><code class="language-python">from statsmodels.sandbox.regression.predstd import wls_prediction_std
+
+pred = res.predict(exog={&quot;TV&quot;:100})
+_ pred_low, pred_high = wls_prediction_std(res, exog=[1,100], weights=1)
+
+# However we get slightly different results. Not 100% that it's just rounding error]
+
+Output:
+[ 5.33925132] [ 18.23326387]
+</code></pre>
+
+<h1 id="takeaways">Takeaways</h1>
+
+<ul>
+<li><p>Confidence intervals can be thought of as the error bounds associated with average of several points at that value.</p></li>
+
+<li><p>Prediction intervals are the error bounds for the single point.</p></li>
+
+<li><p>Confidence intervals are narrower than prediciton intervals because the average of the points cancels out the irreducible error.</p></li>
+
+<li><p>Python&rsquo;s <code>statsmodels</code> library&rsquo;s documentation and interface is not as clean as the R language&rsquo;s. We should work towards bettering it.</p></li>
+</ul>
+
+                <br>
+                <p><a href="https://ishaanv.github.io/personal-blog/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-90422760-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+  
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+</body>
+</html>
+
