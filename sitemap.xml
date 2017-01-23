@@ -2,18 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://ishaanv.github.io/personal-blog/blog/confidence-intervals-vs-prediction-intervals-in-python/</loc>
+    <loc>https://ishaan.xyz/blog/confidence-intervals-vs-prediction-intervals-in-python/</loc>
     <lastmod>2017-01-20T14:12:58+11:00</lastmod>
   </url>
   
   <url>
-    <loc>https://ishaanv.github.io/personal-blog/blog/</loc>
+    <loc>https://ishaan.xyz/blog/</loc>
     <lastmod>2017-01-20T14:12:58+11:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://ishaanv.github.io/personal-blog/</loc>
+    <loc>https://ishaan.xyz/</loc>
     <lastmod>2017-01-20T14:12:58+11:00</lastmod>
     <priority>0</priority>
   </url>

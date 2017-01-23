@@ -8,20 +8,20 @@
 <meta name="MobileOptimized" content="320">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
-<meta name="description" content="Don&#39;t panic">
 
-<base href="https://ishaanv.github.io/personal-blog">
+
+<base href="https://ishaan.xyz">
 <title>
 
 
      Confidence Intervals vs Prediction Intervals (in Python) 
 
 </title>
-<link rel="canonical" href="https://ishaanv.github.io/personal-blog/blog/confidence-intervals-vs-prediction-intervals-in-python/">
+<link rel="canonical" href="https://ishaan.xyz/blog/confidence-intervals-vs-prediction-intervals-in-python/">
 
 
 <script type="text/javascript">
-    var baseURL = 'https:\/\/ishaanv.github.io\/personal-blog';
+    var baseURL = 'https:\/\/ishaan.xyz';
     var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
     if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
         window.location.protocol = 'https:';
@@ -41,11 +41,11 @@
 
 
     
-    <link rel="stylesheet" href="https://ishaanv.github.io/personal-blog/css/reset.css?t=1484891277">
-    <link rel="stylesheet" href="https://ishaanv.github.io/personal-blog/css/pygments.css?t=1484891277">
-    <link rel="stylesheet" href="https://ishaanv.github.io/personal-blog/css/main.css?t=1484891277">
+    <link rel="stylesheet" href="https://ishaan.xyz/css/reset.css?t=1485150236">
+    <link rel="stylesheet" href="https://ishaan.xyz/css/pygments.css?t=1485150236">
+    <link rel="stylesheet" href="https://ishaan.xyz/css/main.css?t=1485150236">
     
-        <link rel="stylesheet" href="https://ishaanv.github.io/personal-blog/css/override.css?t=1484891277">
+        <link rel="stylesheet" href="https://ishaan.xyz/css/override.css?t=1485150236">
     
 
 
@@ -53,7 +53,7 @@
 
 <link rel="shortcut icon"
 
-    href="https://ishaanv.github.io/personal-blog/img/leaf.ico"
+    href="https://ishaan.xyz/img/leaf.ico"
 
 >
 
@@ -71,13 +71,13 @@
     <div class="container">
         <div class="content">
             
-            <a href="https://ishaanv.github.io/personal-blog/"><div class="name">Ishaan Varshney</div></a>
+            <a href="https://ishaan.xyz/"><div class="name">Ishaan Varshney</div></a>
             
             <nav>
                 <ul>
-                    <a href="https://ishaanv.github.io/personal-blog/blog/"><li>Blog</li></a>
-                    <a href="https://ishaanv.github.io/personal-blog/about/"><li>About</li></a>
-                    <a href="https://ishaanv.github.io/personal-blog/code/"><li>Code</li></a>
+                    <a href="https://ishaan.xyz/blog/"><li>Blog</li></a>
+                    <a href="https://ishaan.xyz/about/"><li>About</li></a>
+                    <a href="https://ishaan.xyz/code/"><li>Code</li></a>
                 </ul>
             </nav>
         </div>
@@ -89,13 +89,13 @@
         <div class="content">
 
         
-            <a href="//github.com/ishaanv" target="_blank"><img class="icon" src="https://ishaanv.github.io/personal-blog/img/github.svg" alt="github" /></a>
+            <a href="//github.com/ishaanv" target="_blank"><img class="icon" src="https://ishaan.xyz/img/github.svg" alt="github" /></a>
         
 
         
 
         
-            <a href="//linkedin.com/in/ishaan-varshney-1337a3105/" target="_blank"><img class="icon" src="https://ishaanv.github.io/personal-blog/img/linkedin.svg" alt="linkedin" /></a>
+            <a href="//linkedin.com/in/ishaan-varshney-1337a3105/" target="_blank"><img class="icon" src="https://ishaan.xyz/img/linkedin.svg" alt="linkedin" /></a>
         
 
         
@@ -105,7 +105,7 @@
         
 
         
-            <a href="https://ishaanv.github.io/personal-blog/index.xml"><img class="icon" src="https://ishaanv.github.io/personal-blog/img/rss.svg" alt="rss" /></a>
+            <a href="https://ishaan.xyz/index.xml"><img class="icon" src="https://ishaan.xyz/img/rss.svg" alt="rss" /></a>
         
         </div>
     </div>
@@ -123,7 +123,7 @@
 
 </div>
 
-                    <div class="initials"><a href="https://ishaanv.github.io/personal-blog">ad</a></div>
+                    <div class="initials"><a href="https://ishaan.xyz">ad</a></div>
                 </div>
                 <div class="meta">
                     <div class="date" title="Fri Jan 20 2017 14:12:58 AEDT">Jan 20, 2017</div>
@@ -139,7 +139,7 @@
 
 <!-- <iframe width="900" height="800" frameborder="0" scrolling="no" src="https://plot.ly/~ishaanvar/2.embed"></iframe> -->
 
-<!-- <iframe width="900" height="800" frameborder="0" scrolling="no" src="https://ishaanv.github.io/personal-blog/blog/stats/simple-3d-scatter1.html"></iframe> -->
+<!-- <iframe width="900" height="800" frameborder="0" scrolling="no" src="https://ishaan.xyz/blog/stats/simple-3d-scatter1.html"></iframe> -->
 
 <h2 id="context">Context</h2>
 
@@ -205,7 +205,7 @@ plt.plot(advertising_data[&quot;TV&quot;], advertising_data['Sales'], 'ro')
 plt.plot(advertising_data[&quot;TV&quot;], res.fittedvalues, 'b')
 </code></pre>
 
-<p><img src="https://ishaanv.github.io/personal-blog/blog/stats/regression_output_6_1.png" alt="regression" /></p>
+<p><img src="https://ishaan.xyz/blog/stats/regression_output_6_1.png" alt="regression" /></p>
 
 <p>Now let&rsquo;s plot the confidence and prediction intervals on the historical data.</p>
 
@@ -230,7 +230,7 @@ plt.plot(advertising_data[&quot;TV&quot;], pi_hi, 'c--')
 
 </code></pre>
 
-<p><img src="https://ishaanv.github.io/personal-blog/blog/stats/output_6_1.png" alt="regression" /></p>
+<p><img src="https://ishaan.xyz/blog/stats/output_6_1.png" alt="regression" /></p>
 
 <h3 id="predictions">Predictions</h3>
 
@@ -328,7 +328,7 @@ Output:
 </ul>
 
                 <br>
-                <p><a href="https://ishaanv.github.io/personal-blog/blog/">Back to posts</a></p>
+                <p><a href="https://ishaan.xyz/blog/">Back to posts</a></p>
             </div>
             <br>
             <div class="disqus">
