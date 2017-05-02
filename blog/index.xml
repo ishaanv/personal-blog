@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Blog on Ishaan Varshney</title>
-    <link>http://ishaan.xyz/blog/index.xml</link>
-    <description>Recent content in Blog on Ishaan Varshney</description>
+    <title>Blog on Blog | Ishaan Varshney</title>
+    <link>https://ishaan.xyz/blog/index.xml</link>
+    <description>Recent content in Blog on Blog | Ishaan Varshney</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <lastBuildDate>Fri, 20 Jan 2017 14:12:58 +1100</lastBuildDate>
-    <atom:link href="http://ishaan.xyz/blog/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://ishaan.xyz/blog/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Confidence Intervals vs Prediction Intervals (in Python)</title>
-      <link>http://ishaan.xyz/blog/confidence-intervals-vs-prediction-intervals-in-python/</link>
+      <link>https://ishaan.xyz/blog/confidence-intervals-vs-prediction-intervals-in-python/</link>
       <pubDate>Fri, 20 Jan 2017 14:12:58 +1100</pubDate>
       
-      <guid>http://ishaan.xyz/blog/confidence-intervals-vs-prediction-intervals-in-python/</guid>
+      <guid>https://ishaan.xyz/blog/confidence-intervals-vs-prediction-intervals-in-python/</guid>
       <description>
 
 &lt;!-- ![formaulas](/blog/stats/formulas.png &#34;tl;dr :P&#34;) --&gt;
@@ -23,7 +23,7 @@
 
 &lt;!-- &lt;iframe width=&#34;900&#34; height=&#34;800&#34; frameborder=&#34;0&#34; scrolling=&#34;no&#34; src=&#34;https://plot.ly/~ishaanvar/2.embed&#34;&gt;&lt;/iframe&gt; --&gt;
 
-&lt;!-- &lt;iframe width=&#34;900&#34; height=&#34;800&#34; frameborder=&#34;0&#34; scrolling=&#34;no&#34; src=&#34;http://ishaan.xyz/blog/stats/simple-3d-scatter1.html&#34;&gt;&lt;/iframe&gt; --&gt;
+&lt;!-- &lt;iframe width=&#34;900&#34; height=&#34;800&#34; frameborder=&#34;0&#34; scrolling=&#34;no&#34; src=&#34;https://ishaan.xyz/blog/stats/simple-3d-scatter1.html&#34;&gt;&lt;/iframe&gt; --&gt;
 
 &lt;h2 id=&#34;context&#34;&gt;Context&lt;/h2&gt;
 
@@ -89,7 +89,7 @@ plt.plot(advertising_data[&amp;quot;TV&amp;quot;], advertising_data[&#39;Sales&#
 plt.plot(advertising_data[&amp;quot;TV&amp;quot;], res.fittedvalues, &#39;b&#39;)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://ishaan.xyz/blog/stats/regression_output_6_1.png&#34; alt=&#34;regression&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ishaan.xyz/blog/stats/regression_output_6_1.png&#34; alt=&#34;regression&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Now let&amp;rsquo;s plot the confidence and prediction intervals on the historical data.&lt;/p&gt;
 
@@ -114,7 +114,7 @@ plt.plot(advertising_data[&amp;quot;TV&amp;quot;], pi_hi, &#39;c--&#39;)
 
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://ishaan.xyz/blog/stats/output_6_1.png&#34; alt=&#34;regression&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ishaan.xyz/blog/stats/output_6_1.png&#34; alt=&#34;regression&#34; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;predictions&#34;&gt;Predictions&lt;/h3&gt;
 
